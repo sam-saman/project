@@ -66,7 +66,8 @@ swal("Error!", " You Are not logedin.!! login OR Create New Account", "error");
 												<div class="hd">
 													<h2>{{$item->brand}}</h2>
 												</div>
-												<img src="{{ asset('uploades/'.$item->image)}}" width="30px" height="300px"  />
+												{{-- <img src="{{ asset('uploades/'.$item->image)}}" width="30px" height="300px"  /> --}}
+												<img src="{{$item->image}}" width="30px" height="300px"  />
 											<h2> {{$item->p_name}} </h2>
 												<h3>price: {{$item->price}}</h3>
 												<p></p>

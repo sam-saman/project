@@ -81,6 +81,7 @@ $total=LogController::countCart();
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="{{url('home')}}"><i class="fa fa-user"></i> Home</a></li>
+								<li><a href="myorders"><i class="fa fa-user"></i> MyOrders</a></li>
 								<li><a href="{{url('cart')}}"><i class="fa fa-shopping-cart"></i> Cart({{$total}})</a></li>
 								<li><a href="{{url('index')}}"><i class="fa fa-lock"></i> Login</a></li>
 								@if(Session::get('name'))

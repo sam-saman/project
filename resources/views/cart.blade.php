@@ -44,8 +44,9 @@
 					<tbody>
 						<tr>
 							<td class="cart_product">
-								 <img src="{{ asset('uploades/'.$data->image) }}" width="100px" height="100px" alt="">
-							</td>
+								 {{-- <img src="{{ asset('uploades/'.$data->image) }}" width="100px" height="100px" alt=""> --}}
+								 <img src="{{$data->image }}" width="100px" height="100px" alt="">
+								</td>
 							<td class="cart_description">
 								<h4>{{ $data->pro_name }}</h4>
 							</td>
@@ -94,7 +95,8 @@
 
                             <li>Total <span><?php echo "$".$totalamount;?></span></li>
 						</ul>
-                        <a class="btn btn-default check_out" href="{{ route('checkout') }}">Check Out</a>
+                        {{-- <a class="btn btn-default check_out" href="{{ route('checkout') }}">Check Out</a> --}}
+						<a class="btn btn-default check_out" href="ordernow">Check Out</a>
 					</div>
 				</div>
 

@@ -38,7 +38,7 @@
         <input type="file" class="form-control" value="{{$product->image}}"name="image" >
         <input type="hidden"  class="form-control" name="currentimage"  value="{{ $product->image }}" >
         @if(!empty($product->image))
-        <img src="{{ asset('uploades/'.$product->image)}}" width="100px" height="100px" >
+        <img src="{{$product->image}}" width="100px" height="100px" >
         @endif
 
 

@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 use App\Models\login;
 use App\Models\cart;
 use App\Models\product;
+use App\Models\shipping;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\support\facades\File;
 use Illuminate\Http\Request;
 
-class logController extends Controller
+class LogController extends Controller
 {
     
 
@@ -276,6 +277,7 @@ public function addToCart(Request $request)
         }
         
     }
+
     public function checkout(Request $request)
     {      
 
@@ -309,6 +311,53 @@ public function addToCart(Request $request)
 
 
     }
+
+  public function orderNow()
+    {
+        $sesion=Session::get('name');
+        $total= $products= DB::table('carts')
+         ->join('products','carts.pro_id','=','products.id')
+         ->where('carts.user_name',$sesion)
+         ->sum('products.price');
+ 
+         return view('ordernow',['total'=>$total]);
+ 
+        //  return view('ordernow');
+    }
+
+   public function orderPlace(Request $req)
+    {
+        $sesion=Session::get('name');
+        $allCart=cart::where('user_name',$sesion)->get();
+         foreach($allCart as $cart)
+        {
+             $order= new shipping;
+             $order->product_id=$cart['pro_id'];
+             $order->user_name=$cart['user_name'];
+             $order->status="pending";
+             $order->payment_method=$req->payment;
+             $order->payment_status="pending";
+             $order->address=$req->address;
+             $order->save();
+             Cart::where('user_name',$sesion)->delete(); 
+         }
+         $req->input();
+         return redirect('/');
+    }
+
+
+ public function myOrders(Request $request)
+    {
+        $sesion=Session::get('name');
+        $orders= DB::table('shippings')
+         ->join('products','shippings.product_id','=','products.id')
+         ->where('shippings.user_name',$sesion)
+         ->get();
+ 
+         return view('myorders',['orders'=>$orders]);
+    }
+
+
 
 
 }

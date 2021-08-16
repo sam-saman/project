@@ -54,11 +54,11 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+        {{-- <div class="image">
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
+        </div> --}}
         <div class="info">
-          <a href="#" class="d-block">{{session('name')}}</a>
+          <a href="#" class="d-block"><h3>{{session('name')}}</h3></a>
         </div>
       </div>
 
@@ -110,7 +110,8 @@
 					   <td>{{$item->brand}}</td>
 					   <td>{{$item->price}}</td>
 					   <td>
-                           <img src="{{ asset('uploades/'.$item->image)}}" width="70px" height="70px" >
+                           {{-- <img src="{{ asset('uploades/'.$item->image)}}" width="70px" height="70px" > --}}
+						   <img src="{{ $item->image}}" width="70px" height="70px" >
 						</td>
 						<td>
 							<a href='{{ url('edit/'.$item->id)}}' ><i  class='material-icons' data-toggle='tooltip' title='Edit' style="color:blue">&#xE254;</i></a>
