@@ -18,7 +18,7 @@
 <body>
 		@if(Session::has('jsAlert'))
 <script >
-swal("congratulations!", " Your Order Has Been Placed!Will Be Delieverd Soon", "success");
+swal("congratulations!", " Your Order Has Been Placed!", "success");
 </script>
 {{ Session::forget('jsAlert') }}
 @endif
@@ -57,7 +57,7 @@ swal("Error!", " You Are not logedin.!! login OR Create New Account", "error");
 					<div class="category-tab"><!--category-tab-->
 						<div class="col-sm-12">
 							<h2 class="title text-center">Products</h2>
-							@if(Session::get('name'))
+							@if(Session::get('name') or Session::get('admin'))
 							@foreach ($product as $item)
 								<div class="col-sm-3" >
 									<div class="product-image-wrapper border">
@@ -73,7 +73,12 @@ swal("Error!", " You Are not logedin.!! login OR Create New Account", "error");
 												<p></p>
 												<form method="GET" action="{{route('product')}}">
 													<input type="hidden" value="{{$item->id}}" name="id">
-													  <button type="submit"  class="btn btn-default add-to-cart" >   <i class="fa fa-shopping-cart"></i> ADD TO CART </button>
+													@if(Session::get('name'))
+													<button type="submit"   class="btn btn-default add-to-cart" >   <i class="fa fa-shopping-cart"></i> ADD TO CART </button>												  
+													  @else
+													  <button type="submit"   class="btn btn-default add-to-cart" disabled>   <i class="fa fa-shopping-cart"></i> ADD TO CART </button>	
+																								  
+													  @endif
 												</form>
 											</div>	
 										</div>

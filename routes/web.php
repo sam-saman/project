@@ -15,8 +15,9 @@ Route::get('/', function () {
 Route::post('signup',[LogController::class,'insert'])->name('signup');
 Route::post('login',[LogController::class,'login'])->name('login');
 Route::get('admin',[LogController::class,'admin'])->name('admin');
+Route::get('user',[LogController::class,'user'])->name('user');
 Route::get('index',[LogController::class,'index'])->name('index');
-Route::get('logout',[LogController::class,'logout']);
+Route::get('logout',[LogController::class,'logout'])->name('logout');
 Route::post('insert',[LogController::class,'store']);
 Route::get('edit/{id}',[LogController::class,'editHome']);
 Route::put('update/{id}',[LogController::class,'edit']);

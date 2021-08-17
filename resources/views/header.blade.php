@@ -1,9 +1,7 @@
  <?php
 use App\Http\Controllers\LogController;
 $total=LogController::countCart();
-
 ?> 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,9 +37,7 @@ $total=LogController::countCart();
 
 </head>
 <body>
-    
-
-	<header id="header"><!--header-->
+   <header id="header"><!--header-->
 		<div class="header_top"><!--header_top-->
 			<div class="container">
 				<div class="row">
@@ -81,11 +77,15 @@ $total=LogController::countCart();
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li><a href="{{url('home')}}"><i class="fa fa-user"></i> Home</a></li>
-								<li><a href="myorders"><i class="fa fa-user"></i> MyOrders</a></li>
+                                 @if(Session::get('admin'))
+								 <li><a href="admin"><i class="fa fa-user"></i> Dashboard</a></li>
+								 @else
+								 <li><a href="myorders"><i class="fa fa-user"></i> MyOrders</a></li>
 								<li><a href="{{url('cart')}}"><i class="fa fa-shopping-cart"></i> Cart({{$total}})</a></li>
 								<li><a href="{{url('index')}}"><i class="fa fa-lock"></i> Login</a></li>
-								@if(Session::get('name'))
-								<li><a href="{{url('logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
+								 @endif()
+								@if(Session::get('name') or Session::get('admin'))
+								<li><a href="{{route('logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
 								@endif
 							</ul>
 						</div>

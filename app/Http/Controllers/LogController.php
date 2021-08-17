@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\login;
 use App\Models\cart;
+use App\Models\usertable;
 use App\Models\product;
 use App\Models\shipping;
 use Illuminate\Support\Facades\DB;
@@ -15,9 +16,10 @@ class LogController extends Controller
 {
     
 
-        public function insert(Request $request ){
+        public function insert(Request $request )
+        {
             $data = $request->all();
-            $login= new login;
+            $login= new usertable;
             $login->name=$data['name'];
             $login->email=$data['email'];
             $login->password=Hash::make($data['password']);
@@ -33,15 +35,15 @@ class LogController extends Controller
 
         }
 
-        public function login(Request $request) {
+        public function login(Request $request)
+         {
    
            $login=login::where('email','=',$request->email)->first();
            if($login)
            {
                if(Hash::check($request->password,$login->password))
                {
-                   $request->session()->put('name',$login['name']);
-                    // return back()->with('success','welcome');
+                   $request->session()->put('admin',$login['name']);
                     return redirect('admin');
                }
                else
@@ -51,7 +53,24 @@ class LogController extends Controller
            }
            else
            {
-            return back()->with('fail','Email not Found');
+            $userlogin=usertable::where('email','=',$request->email)->first();
+            if($userlogin)
+            {
+                if(Hash::check($request->password,$userlogin->password))
+               {
+                   $request->session()->put('name',$userlogin['name']);
+                    return redirect('home');
+               }
+               else
+               {
+                return back()->with('fail','password dont match');
+               }
+            }
+            else
+            {
+                return back()->with('fail','Email not Found');
+            }
+
            }
 
         }
@@ -72,9 +91,20 @@ public function editHome($id)
 public function admin()
 {
 
-     if(session()->has('name')){
+     if(session()->has('admin')){
         $product=product::all();
           return view('admin',compact('product'));
+        }
+        else{
+                return view ('404');
+            }
+}
+
+public function user()
+{
+
+     if(session()->has('name')){
+          return view('userdash');
         }
         else{
                 return redirect('index');
@@ -92,8 +122,18 @@ public function index()
 
 public function logout(Request $request)
  {
-    $request->session()->forget('name');
-    return redirect('/');
+     if(Session::get('admin'))
+     {
+        $request->session()->forget('admin');
+        return redirect('home');
+     }
+     else if(Session::get('name'))
+     {
+        $request->session()->forget('name');
+        return redirect('home');
+     }
+
+
 }
 
 
@@ -177,14 +217,14 @@ public function store(Request $request)
 
 public function home()
 {
-    if(session()->has('name'))
+    if(session()->has('name') or session()->has('admin'))
     {
         $product=product::all();
         return view('home',compact('product'));
     }
     else
     {
-    return view('home');
+        return view('home');
     }
         
 }
@@ -192,13 +232,9 @@ public function home()
 
 public function product(Request $request)
 {
-
-
     $id=$request->id;
     $product=product::find($id);
      return view('product',compact('product'));
-
-
 }
 
 
@@ -239,7 +275,7 @@ public function addToCart(Request $request)
 
     }
 
-    public function cart(Request $request)
+public function cart(Request $request)
     {      
 
         if(session()->has('name'))
@@ -278,32 +314,32 @@ public function addToCart(Request $request)
         
     }
 
-    public function checkout(Request $request)
+public function checkout(Request $request)
     {      
 
         if(session()->has('name'))
         {
             DB::table('carts')->truncate();
-            return redirect('home')->with('jsAlert', 'Your Order Has Been Placed!Will Be Delieverd Soon');
+            return redirect('home')->with('jsAlert', 'Your Order Has Been Placed!');
         }
       
         
     }
 
-    public function cartQuan(Request $request,$id,$quantity)
+public function cartQuan(Request $request,$id,$quantity)
     {
         DB::table('carts')->where('id',$id)->increment('pro_quantity',$quantity);
         return redirect('cart');
     }
 
-
-    public function cartDel(Request $request,$id)
+public function cartDel(Request $request,$id)
     {
         DB::table('carts')->where('id',$id)->delete();
         return redirect('cart');
 
     }
-    static function countCart(){
+static function countCart()
+{
 
         $sesion=Session::get('name');
         return cart::where(['user_name'=>$sesion])->count();
@@ -312,8 +348,10 @@ public function addToCart(Request $request)
 
     }
 
-  public function orderNow()
+public function orderNow()
     {
+        if(Session::get('name'))
+        {
         $sesion=Session::get('name');
         $total= $products= DB::table('carts')
          ->join('products','carts.pro_id','=','products.id')
@@ -321,6 +359,11 @@ public function addToCart(Request $request)
          ->sum('products.price');
  
          return view('ordernow',['total'=>$total]);
+        }
+        else
+        {   
+            return view('404');
+        }
  
         //  return view('ordernow');
     }
@@ -342,12 +385,14 @@ public function addToCart(Request $request)
              Cart::where('user_name',$sesion)->delete(); 
          }
          $req->input();
-         return redirect('/');
+         return redirect('home')->with('jsAlert', 'Your Order Has Been Placed!Will Be Delieverd Soon');  
     }
 
 
  public function myOrders(Request $request)
     {
+        if(session()->has('name'))
+        {
         $sesion=Session::get('name');
         $orders= DB::table('shippings')
          ->join('products','shippings.product_id','=','products.id')
@@ -355,6 +400,11 @@ public function addToCart(Request $request)
          ->get();
  
          return view('myorders',['orders'=>$orders]);
+        }
+        else{
+
+            return redirect('index')->with('Failslogin','You Are not logedin.!! login OR Create New Account');
+        }
     }
 
 

@@ -26,21 +26,21 @@ class productsTableSeeder extends Seeder
         [
             'p_name'=>'SAMSUNG GALAXY A10S',
             'brand'=>'Samsung galaxy',
-            'price'=>' 15,979',
+            'price'=>' 15979',
             'image'=>'https://cdn.shopify.com/s/files/1/0401/9070/5820/products/A10s-blue_1024x1024.jpg?v=1623995064',
  
         ],
         [
             'p_name'=>'REDMI NOTE 10 PRO',
             'brand'=>'Redmi',
-            'price'=>' 47,999',
+            'price'=>' 47999',
             'image'=>'https://cdn.shopify.com/s/files/1/0401/9070/5820/products/Gol_1024x1024.jpg?v=1623993893',
  
         ],
         [
             'p_name'=>'IPHONE 12 PRO MAX',
             'brand'=>'IPHONE',
-            'price'=>'224,361',
+            'price'=>'224361',
             'image'=>'https://cdn.shopify.com/s/files/1/0401/9070/5820/products/Pacific-Blue_94483d42-93a9-4b4e-ad65-7f7298aac3cb_1024x1024.png?v=1623992860',
  
         ],
