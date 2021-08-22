@@ -17,9 +17,14 @@ class UserTableSeeder extends Seeder
         //
 
 
+        // DB::table('logins')->insert([
+        //     'name' => 'Aurora',
+        //     'email' => 'aurora@gmail.com',
+        //     'password' => Hash::make('123'),
+        // ]);
         DB::table('logins')->insert([
-            'name' => 'Aurora',
-            'email' => 'aurora@gmail.com',
+            'name' => 'sara',
+            'email' => 'sara@gmail.com',
             'password' => Hash::make('123'),
         ]);
     }

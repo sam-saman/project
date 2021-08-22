@@ -46,7 +46,7 @@ width: 50px;
 						
 						<div class="preview-pic tab-content">
 							{{-- <div class="tab-pane active" id="picc"><img src="{{ asset('uploades/'.$product->image)}}" height="400px" width="80px" /></div> --}}
-							<div class="tab-pane active" id="picc"><img src="{{$product->image}}" height="400px" width="80px" /></div>
+							<div class="tab-pane active" id="picc"><img src="{{  asset('/storage/images/'.$product->image) }}" height="400px" width="80px" /></div>
 						</div>
 {{-- 	
 <div class="row" id="sam">

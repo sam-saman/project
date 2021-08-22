@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\support\facades\File;
 use Illuminate\Http\Request;
 
+
 class LogController extends Controller
 {
     
@@ -148,11 +149,24 @@ public function store(Request $request)
  
      if($request->hasFile('image')){
                    
-         $file=$request->file('image');
-         $extention=$file->getClientOriginalExtension();
-         $filename=time().'.'.$extention;
-         $file->move('uploades/',$filename);
-         $product->image=$filename;
+        //  $file=$request->file('image');
+        //  $extention=$file->getClientOriginalExtension();
+        //  $filename=time().'.'.$extention;
+        //  $request->file('image')->store('public/images');
+        // //  $file->move('uploades/',$filename);
+        //  $product->image=$filename;
+
+
+      $destination='public/images';
+      $image = $request->file('image');
+      $image_name=$image->getClientOriginalName();
+      $path=$request->file('image')->storeAs($destination,$image_name);
+
+      $product['image']=$image_name;
+    
+
+
+
      }
      $product->save();
      return redirect()->back()->with('status','image success');

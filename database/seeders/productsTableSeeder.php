@@ -44,6 +44,7 @@ class productsTableSeeder extends Seeder
             'image'=>'https://cdn.shopify.com/s/files/1/0401/9070/5820/products/Pacific-Blue_94483d42-93a9-4b4e-ad65-7f7298aac3cb_1024x1024.png?v=1623992860',
  
         ],
+        
         [
             'p_name'=>'Samsung 12',
             'brand'=>'Samsung Galaxy',

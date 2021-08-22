@@ -58,7 +58,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div> --}}
         <div class="info">
-          <a href="#" class="d-block"><h3>{{session('name')}}</h3></a>
+          <a href="#" class="d-block"><h3>{{session('admin')}}</h3></a>
         </div>
       </div>
 
@@ -103,15 +103,19 @@
 				</thead>
 					<tbody>
                    @foreach ($product as $item)
-					   
-	
+
                    <tr>
 					   <td>{{$item->p_name}}</td>
 					   <td>{{$item->brand}}</td>
 					   <td>{{$item->price}}</td>
 					   <td>
-                           {{-- <img src="{{ asset('uploades/'.$item->image)}}" width="70px" height="70px" > --}}
-						   <img src="{{ $item->image}}" width="70px" height="70px" >
+					
+                        
+
+						    {{-- <img src="{{ $item->image}}" width="70px" height="70px" >  --}}
+				
+							<img  src="{{  asset('/storage/images/'.$item->image) }} " width="70px" height="70px">
+							{{-- src="{{ URL::asset('storage/images'.$num->images) --}}
 						</td>
 						<td>
 							<a href='{{ url('edit/'.$item->id)}}' ><i  class='material-icons' data-toggle='tooltip' title='Edit' style="color:blue">&#xE254;</i></a>
