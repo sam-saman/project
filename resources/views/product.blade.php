@@ -45,8 +45,16 @@ width: 50px;
 					<div class="preview col-md-5">
 						
 						<div class="preview-pic tab-content">
+
+							@if( file_exists('storage/images/' . $product->image))
+							<div class="tab-pane active" id="picc"><img  src="{{  asset('/storage/images/'.$product->image) }} " height="400px" width="80px"></div>
+							@else
+							<div class="tab-pane active" id="picc"><img src="{{ $product->image}}" height="400px" width="80px"> </div>	  
+							@endif 
+
+
 							{{-- <div class="tab-pane active" id="picc"><img src="{{ asset('uploades/'.$product->image)}}" height="400px" width="80px" /></div> --}}
-							<div class="tab-pane active" id="picc"><img src="{{  asset('/storage/images/'.$product->image) }}" height="400px" width="80px" /></div>
+							{{-- <div class="tab-pane active" id="picc"><img src="{{  asset('/storage/images/'.$product->image) }}" height="400px" width="80px" /></div> --}}
 						</div>
 {{-- 	
 <div class="row" id="sam">

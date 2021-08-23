@@ -163,10 +163,6 @@ public function store(Request $request)
       $path=$request->file('image')->storeAs($destination,$image_name);
 
       $product['image']=$image_name;
-    
-
-
-
      }
      $product->save();
      return redirect()->back()->with('status','image success');
@@ -184,7 +180,7 @@ public function store(Request $request)
 
         if($request->hasFile('image'))
         {
-        $destination ='uploades/'.$product->image;
+        $destination ='/storage/images/'.$product->image;
         if(File::exists($destination))
         {
         File::delete($destination);
@@ -196,11 +192,17 @@ public function store(Request $request)
         }
         else
         {
-            $file=$request->file('image');
-            $extention=$file->getClientOriginalExtension();
-            $filename=time().'.'.$extention;
-            $file->move('uploades/',$filename);
-            $product->image=$filename;
+            // $file=$request->file('image');
+            // $extention=$file->getClientOriginalExtension();
+            // $filename=time().'.'.$extention;
+            // $file->move('/storage/images/',$filename);
+            // $product->image=$filename;
+            $destination='public/images';
+            $image = $request->file('image');
+            $image_name=$image->getClientOriginalName();
+            $path=$request->file('image')->storeAs($destination,$image_name);
+      
+            $product['image']=$image_name;
         }
 
      }
@@ -218,7 +220,7 @@ public function store(Request $request)
  {
 
     $product= product::find($id);
-     $destination ='uploades/'.$product->image;
+     $destination ='public/images'.$product->image;
         if(File::exists($destination))
         {
         File::delete($destination);

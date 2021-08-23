@@ -27,7 +27,16 @@ color:#FE980F;
                <div class=" row searched-item cart-list-devider">
                 <div class="col-sm-4">
                    <a href="detail/{{$item->id}}">
-                       <img class="trending-image" src="{{  asset('/storage/images/'.$item->image) }}" height="200px" width="150px">
+                    @if( file_exists('storage/images/' . $item->image))
+                    <img class="trending-image" src="{{  asset('/storage/images/'.$item->image) }}" height="200px" width="150px">
+                    @else
+                    <img src="{{$item->image }}" height="200px" width="150px" alt=""> 	  
+                    @endif 
+      
+   
+   
+
+                       
                      </a>
                 </div>
                 <div class="col-sm-8">

@@ -46,7 +46,18 @@
 							<td class="cart_product">
 								 {{-- <img src="{{ asset('uploades/'.$data->image) }}" width="100px" height="100px" alt=""> --}}
 								
+
+								 @if( file_exists('storage/images/' . $data->image))
 								 <img  src="{{  asset('/storage/images/'.$data->image) }}" width="100px" height="100px" alt=""> 
+								 @else
+								 <img src="{{$data->image }}" width="100px" height="100px" alt=""> 	  
+								 @endif 
+	 
+
+
+
+
+								 {{-- <img  src="{{  asset('/storage/images/'.$data->image) }}" width="100px" height="100px" alt="">  --}}
 								 {{-- <img src="{{$data->image }}" width="100px" height="100px" alt=""> --}}
 								</td>
 							<td class="cart_description">

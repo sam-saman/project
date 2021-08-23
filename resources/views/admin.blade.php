@@ -110,11 +110,15 @@
 					   <td>{{$item->price}}</td>
 					   <td>
 					
-                        
+       {{-- $file = public_path('storage/images/' . $$item->image) --}}
 
-						    {{-- <img src="{{ $item->image}}" width="70px" height="70px" >  --}}
-				
-							<img  src="{{  asset('/storage/images/'.$item->image) }} " width="70px" height="70px">
+@if( file_exists('storage/images/' . $item->image))
+<img  src="{{  asset('/storage/images/'.$item->image) }} " width="70px" height="70px">
+@else
+<img src="{{ $item->image}}" width="70px" height="70px" > 	  
+@endif 
+						  {{-- <img src="{{ $item->image}}" width="70px" height="70px" >  --}}
+				  {{-- @if()--}}	
 							{{-- src="{{ URL::asset('storage/images'.$num->images) --}}
 						</td>
 						<td>
